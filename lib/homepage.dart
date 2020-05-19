@@ -15,16 +15,16 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  Future<List> getNumber() async {
+  Future<List> getWorldStatistics() async {
     http.Response response = await http.get(
         "https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=20&page=1");
 
     return COVIDByCountry.byTotalCases(json.decode(response.body));
   }
 
-  Stream<List> getNumbers(Duration refreshTime) async* {
+  Stream<List> getByCountry(Duration refreshTime) async* {
     await Future.delayed(refreshTime);
-    yield await getNumber();
+    yield await getWorldStatistics();
   }
 
   @override
@@ -38,7 +38,7 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       body: Center(
           child: StreamBuilder(
-        stream: getNumbers(Duration(seconds: 1)),
+        stream: getByCountry(Duration(seconds: 1)),
         initialData: null,
         builder: (context, stream) {
           if (stream.connectionState == ConnectionState.done) {
@@ -167,7 +167,7 @@ class LikeCounter extends StatelessWidget {
         data: covidByTotalCases,
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (COVIDByCountry pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+            charts.ColorUtil.fromDartColor(pollution.colorval),
       ),
     );
 
