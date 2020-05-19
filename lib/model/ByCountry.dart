@@ -1,28 +1,18 @@
 class COVIDByCountry {
   final String country; //country
-  final String total_cases; //total_cases
-  final String new_cases; //new_cases
-  final String total_deaths; //total_deaths
-  final String new_deaths; //new_deaths
-  final String flag; //flag
+  final int total_cases; //total_cases
 
-  COVIDByCountry({
-    this.country,
-    this.total_cases,
-    this.new_cases,
-    this.total_deaths,
-    this.new_deaths,
-    this.flag,
-  });
+  COVIDByCountry(this.country, this.total_cases); //flag
 
 //  factory COVIDByCountry.fromMap(Map<String, dynamic> map) {
+//    map.forEach((key, value) {});
 //    return COVIDByCountry(
-//      id: map['id'],
-//      title: map['snippet']['title'],
-//      profilePictureUrl: map['snippet']['thumbnails']['default']['url'],
-//      subscriberCount: map['statistics']['subscriberCount'],
-//      videoCount: map['statistics']['videoCount'],
-//      uploadPlaylistId: map['contentDetails']['relatedPlaylists']['uploads'],
+//      country: map['country'],
+//      total_cases: map['total_cases'],
+//      new_cases: map['new_cases'],
+//      total_deaths: map['total_deaths'],
+//      new_deaths: map['new_deaths'],
+//      flag: map['flag'],
 //    );
-//  }
+  //}
 }

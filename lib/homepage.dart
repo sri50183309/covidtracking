@@ -1,6 +1,10 @@
+import 'package:covidtracker/model/ByCountry.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:http/http.dart' as http;
+import 'dart:async';
+import 'dart:convert';
 
 class HomePage extends StatefulWidget {
   final Widget child;
@@ -14,6 +18,19 @@ class _HomePageState extends State<HomePage> {
   List<charts.Series<Pollution, String>> _seriesData;
   List<charts.Series<Task, String>> _seriesPieData;
   List<charts.Series<Sales, int>> _seriesLineData;
+  List<charts.Series<COVIDByCountry, String>> _covidByCountry;
+  Map data;
+  List userData;
+  COVIDByCountry channel;
+  Future getData() async {
+    http.Response response = await http.get(
+        "https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=20&page=1");
+    data = json.decode(response.body);
+    setState(() {
+      userData = data["data"]["rows"][0];
+      //channel = COVIDByCountry.fromMap(data);
+    });
+  }
 
   _generateData() {
     var data1 = [
@@ -30,6 +47,18 @@ class _HomePageState extends State<HomePage> {
       new Pollution(1985, 'USA', 200),
       new Pollution(1980, 'Asia', 300),
       new Pollution(1985, 'Europe', 180),
+    ];
+
+    var covidByTotalCases = [
+      new COVIDByCountry('World', 5000000),
+      new COVIDByCountry('USA', 2000000),
+      new COVIDByCountry('India', 1000000),
+    ];
+
+    var covidByNewCases = [
+      new COVIDByCountry('World', 4000000),
+      new COVIDByCountry('USA', 1000000),
+      new COVIDByCountry('India', 1000000),
     ];
 
     var piedata = [
@@ -103,6 +132,30 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
+    _covidByCountry.add(
+      charts.Series(
+        domainFn: (COVIDByCountry pollution, _) => pollution.country,
+        measureFn: (COVIDByCountry pollution, _) => pollution.total_cases,
+        id: '1',
+        data: covidByTotalCases,
+        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        fillColorFn: (COVIDByCountry pollution, _) =>
+            charts.ColorUtil.fromDartColor(Color(0xffff9900)),
+      ),
+    );
+
+    _covidByCountry.add(
+      charts.Series(
+        domainFn: (COVIDByCountry pollution, _) => pollution.country,
+        measureFn: (COVIDByCountry pollution, _) => pollution.total_cases,
+        id: '2',
+        data: covidByNewCases,
+        fillPatternFn: (_, __) => charts.FillPatternType.solid,
+        fillColorFn: (COVIDByCountry pollution, _) =>
+            charts.ColorUtil.fromDartColor(Color(0xff109618)),
+      ),
+    );
+
     _seriesPieData.add(
       charts.Series(
         domainFn: (Task task, _) => task.task,
@@ -151,7 +204,9 @@ class _HomePageState extends State<HomePage> {
     _seriesData = List<charts.Series<Pollution, String>>();
     _seriesPieData = List<charts.Series<Task, String>>();
     _seriesLineData = List<charts.Series<Sales, int>>();
+    _covidByCountry = List<charts.Series<COVIDByCountry, String>>();
     _generateData();
+    getData();
   }
 
   @override
@@ -190,7 +245,7 @@ class _HomePageState extends State<HomePage> {
                         ),
                         Expanded(
                           child: charts.BarChart(
-                            _seriesData,
+                            _covidByCountry,
                             animate: true,
                             barGroupingType: charts.BarGroupingType.grouped,
                             //behaviors: [new charts.SeriesLegend()],
