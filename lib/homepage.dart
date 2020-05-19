@@ -15,22 +15,59 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<charts.Series<Pollution, String>> _seriesData;
-  List<charts.Series<Task, String>> _seriesPieData;
-  List<charts.Series<Sales, int>> _seriesLineData;
-  List<charts.Series<COVIDByCountry, String>> _covidByCountry;
-  Map data;
-  List userData;
-  COVIDByCountry channel;
-  Future getData() async {
+  Future<List> getNumber() async {
     http.Response response = await http.get(
         "https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=20&page=1");
-    data = json.decode(response.body);
-    setState(() {
-      userData = data["data"]["rows"][0];
-      //channel = COVIDByCountry.fromMap(data);
-    });
+
+    return COVIDByCountry.byTotalCases(json.decode(response.body));
   }
+
+  Stream<List> getNumbers(Duration refreshTime) async* {
+    await Future.delayed(refreshTime);
+    yield await getNumber();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      body: Center(
+          child: StreamBuilder(
+        stream: getNumbers(Duration(seconds: 1)),
+        initialData: null,
+        builder: (context, stream) {
+          if (stream.connectionState == ConnectionState.done) {
+            return LikeCounter(stream.data);
+          }
+          if (stream.hasData) {
+            return LikeCounter(stream.data);
+          } else {
+            return CircularProgressIndicator();
+          }
+        },
+      )),
+    );
+  }
+}
+
+class LikeCounter extends StatelessWidget {
+  final List num;
+
+  List<charts.Series<Pollution, String>> _seriesData =
+      List<charts.Series<Pollution, String>>();
+  List<charts.Series<Task, String>> _seriesPieData =
+      List<charts.Series<Task, String>>();
+  List<charts.Series<Sales, int>> _seriesLineData =
+      List<charts.Series<Sales, int>>();
+  List<charts.Series<COVIDByCountry, String>> _covidByCountry =
+      List<charts.Series<COVIDByCountry, String>>();
+
+  LikeCounter(this.num);
 
   _generateData() {
     var data1 = [
@@ -49,17 +86,7 @@ class _HomePageState extends State<HomePage> {
       new Pollution(1985, 'Europe', 180),
     ];
 
-    var covidByTotalCases = [
-      new COVIDByCountry('World', 5000000),
-      new COVIDByCountry('USA', 2000000),
-      new COVIDByCountry('India', 1000000),
-    ];
-
-    var covidByNewCases = [
-      new COVIDByCountry('World', 4000000),
-      new COVIDByCountry('USA', 1000000),
-      new COVIDByCountry('India', 1000000),
-    ];
+    var covidByTotalCases = this.num;
 
     var piedata = [
       new Task('Work', 35.8, Color(0xff3366cc)),
@@ -144,18 +171,6 @@ class _HomePageState extends State<HomePage> {
       ),
     );
 
-    _covidByCountry.add(
-      charts.Series(
-        domainFn: (COVIDByCountry pollution, _) => pollution.country,
-        measureFn: (COVIDByCountry pollution, _) => pollution.total_cases,
-        id: '2',
-        data: covidByNewCases,
-        fillPatternFn: (_, __) => charts.FillPatternType.solid,
-        fillColorFn: (COVIDByCountry pollution, _) =>
-            charts.ColorUtil.fromDartColor(Color(0xff109618)),
-      ),
-    );
-
     _seriesPieData.add(
       charts.Series(
         domainFn: (Task task, _) => task.task,
@@ -198,19 +213,8 @@ class _HomePageState extends State<HomePage> {
   }
 
   @override
-  void initState() {
-    // TODO: implement initState
-    super.initState();
-    _seriesData = List<charts.Series<Pollution, String>>();
-    _seriesPieData = List<charts.Series<Task, String>>();
-    _seriesLineData = List<charts.Series<Sales, int>>();
-    _covidByCountry = List<charts.Series<COVIDByCountry, String>>();
-    _generateData();
-    getData();
-  }
-
-  @override
   Widget build(BuildContext context) {
+    _generateData();
     return MaterialApp(
       home: DefaultTabController(
         length: 3,

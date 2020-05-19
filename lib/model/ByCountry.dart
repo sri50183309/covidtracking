@@ -2,7 +2,37 @@ class COVIDByCountry {
   final String country; //country
   final int total_cases; //total_cases
 
-  COVIDByCountry(this.country, this.total_cases); //flag
+  COVIDByCountry(this.country, this.total_cases);
+
+  static byTotalCases(Map userData) {
+    List<COVIDByCountry> byTotalCases = [];
+
+    if (userData != null) {
+      List<dynamic> covidResponseByCountries = userData['data']['rows'];
+
+      int i = 0;
+      covidResponseByCountries.forEach((element) {
+        if (i <= 10 && element['country'] != 'World') {
+          byTotalCases.add(fromTotalCases(element));
+        }
+        i++;
+      });
+    }
+    return byTotalCases;
+  }
+
+  static byNewCases(Map userData) {
+    return [
+      new COVIDByCountry('World', 4000000),
+      new COVIDByCountry('USA', 1000000),
+      new COVIDByCountry('India', 1000000),
+    ];
+  }
+
+  static fromTotalCases(element) {
+    return new COVIDByCountry(element['country'],
+        int.parse(element['total_cases'].toString().replaceAll(",", "")));
+  } //flag
 
 //  factory COVIDByCountry.fromMap(Map<String, dynamic> map) {
 //    map.forEach((key, value) {});
