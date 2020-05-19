@@ -12,7 +12,7 @@ class COVIDByCountry {
 
       int i = 0;
       covidResponseByCountries.forEach((element) {
-        if (i <= 10 && element['country'] != 'World') {
+        if (i <= 10 && element['country_abbreviation'] != '') {
           byTotalCases.add(fromTotalCases(element));
         }
         i++;
@@ -30,7 +30,7 @@ class COVIDByCountry {
   }
 
   static fromTotalCases(element) {
-    return new COVIDByCountry(element['country'],
+    return new COVIDByCountry(element['country_abbreviation'],
         int.parse(element['total_cases'].toString().replaceAll(",", "")));
   } //flag
 
