@@ -1,4 +1,5 @@
 import 'package:covidtracker/model/ByCountry.dart';
+import 'package:covidtracker/model/ByIndia.dart';
 import 'package:flutter/material.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -20,6 +21,13 @@ class _HomePageState extends State<HomePage> {
         "https://corona-virus-stats.herokuapp.com/api/v1/cases/countries-search?limit=20&page=1");
 
     return COVIDByCountry.byTotalCases(json.decode(response.body));
+  }
+
+  Future<List> getIndiaStatistics() async {
+    http.Response response =
+        await http.get("https://covid-19india-api.herokuapp.com/state_data");
+
+    return COVIDInIndia.byTotalCases(json.decode(response.body));
   }
 
   Stream<List> getByCountry(Duration refreshTime) async* {
