@@ -41,7 +41,7 @@ class COVIDByCountry {
       int i = 0;
       covidResponseByCountries.forEach((element) {
         index = random.nextInt(5);
-        if (i <= 10 && element['country_abbreviation'] != '') {
+        if (i <= 15 && element['country_abbreviation'] != '') {
           byTotalCases.add(fromTotalCases(element, colors[index]));
         }
         i++;
