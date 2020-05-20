@@ -7,6 +7,8 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:provider/provider.dart';
+
 class HomePage extends StatefulWidget {
   final Widget child;
 
@@ -33,6 +35,11 @@ class _HomePageState extends State<HomePage> {
   Stream<List> getByCountry(Duration refreshTime) async* {
     await Future.delayed(refreshTime);
     yield await getWorldStatistics();
+  }
+
+  Stream<List> getInIndia(Duration refreshTime) async* {
+    await Future.delayed(refreshTime);
+    yield await getIndiaStatistics();
   }
 
   @override
@@ -63,18 +70,27 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
+//class NewDynamicWidget extends StatelessWidget {
+//  @override
+//  Widget build(BuildContext context) {
+//    return Consumer<COVIDByCountry>(
+//      builder: (context, COVIDByCountry covidByCountry),
+//    );
+//  }
+//}
+
 class LikeCounter extends StatelessWidget {
-  final List num;
+  final List covidInWholeWolrd;
 
   List<charts.Series<Sales, int>> _seriesLineData =
       List<charts.Series<Sales, int>>();
   List<charts.Series<COVIDByCountry, String>> _covidByCountry =
       List<charts.Series<COVIDByCountry, String>>();
 
-  LikeCounter(this.num);
+  LikeCounter(this.covidInWholeWolrd);
 
   _generateData() {
-    var covidByTotalCases = this.num;
+    var covidByTotalCases = this.covidInWholeWolrd;
     var linesalesdata = [
       new Sales(0, 45),
       new Sales(1, 56),
@@ -176,9 +192,10 @@ class LikeCounter extends StatelessWidget {
               Padding(
                 padding: EdgeInsets.all(8.0),
                 child: ListView.builder(
-                  itemCount: num == null ? 0 : num.length,
+                  itemCount:
+                      covidInWholeWolrd == null ? 0 : covidInWholeWolrd.length,
                   itemBuilder: (BuildContext context, int index) {
-                    COVIDByCountry covidByCountr = num[index];
+                    COVIDByCountry covidByCountr = covidInWholeWolrd[index];
                     return Card(
                       child: Padding(
                         padding: const EdgeInsets.all(10.0),
