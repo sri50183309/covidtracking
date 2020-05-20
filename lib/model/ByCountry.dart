@@ -7,8 +7,21 @@ class COVIDByCountry {
   final String country; //country
   final int total_cases; //total_cases
   Color colorval;
+  final String flag;
+  final String new_cases; //new_cases
+  final String total_deaths; //total_deaths
+  final String new_deaths; //new_deaths
+  final String country_abbreviation;
 
-  COVIDByCountry(this.country, this.total_cases, this.colorval);
+  COVIDByCountry(
+      this.country,
+      this.total_cases,
+      this.colorval,
+      this.flag,
+      this.new_cases,
+      this.total_deaths,
+      this.new_deaths,
+      this.country_abbreviation);
 
   static byTotalCases(Map userData) {
     List<COVIDByCountry> byTotalCases = [];
@@ -39,9 +52,14 @@ class COVIDByCountry {
 
   static fromTotalCases(element, color) {
     return new COVIDByCountry(
-        element['country_abbreviation'],
+        element['country'],
         int.parse(element['total_cases'].toString().replaceAll(",", "")),
-        color);
+        color,
+        element['flag'],
+        element['new_cases'],
+        element['total_deaths'],
+        element['new_deaths'],
+        element['country_abbreviation']);
   } //flag
 
 }
