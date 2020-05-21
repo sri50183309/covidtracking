@@ -12,6 +12,7 @@ class COVIDByCountry {
   final String total_deaths; //total_deaths
   final String new_deaths; //new_deaths
   final String country_abbreviation;
+  final String totalCasesString;
 
   COVIDByCountry(
       this.country,
@@ -21,7 +22,8 @@ class COVIDByCountry {
       this.new_cases,
       this.total_deaths,
       this.new_deaths,
-      this.country_abbreviation);
+      this.country_abbreviation,
+      this.totalCasesString);
 
   static byTotalCases(Map userData) {
     List<COVIDByCountry> byTotalCases = [];
@@ -59,7 +61,8 @@ class COVIDByCountry {
         element['new_cases'],
         element['total_deaths'],
         element['new_deaths'],
-        element['country_abbreviation']);
+        element['country_abbreviation'],
+        element['total_cases']);
   } //flag
 
 }
