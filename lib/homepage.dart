@@ -77,6 +77,16 @@ class LikeCounter extends StatelessWidget {
 
   LikeCounter(this.covidInWholeWolrd, this.covidInIndia);
 
+  DataRow _getDataRow(COVIDInIndia result) {
+    return DataRow(
+      cells: <DataCell>[
+        DataCell(Text(result.state)),
+        DataCell(Text("${result.confirmed}")),
+        DataCell(Text("${result.deaths}")),
+      ],
+    );
+  }
+
   _generateData() {
     var covidByTotalCases = this.covidInWholeWolrd;
     _covidByCountry.add(
@@ -181,35 +191,20 @@ class LikeCounter extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: ListView.builder(
-                  itemCount: covidInIndia == null ? 0 : covidInIndia.length,
-                  itemBuilder: (BuildContext context, int index) {
-                    COVIDInIndia covidByCountr = covidInIndia[index];
-                    return Card(
-                      child: Padding(
-                        padding: const EdgeInsets.all(5.0),
-                        child: Row(
-                          children: <Widget>[
-                            CircleAvatar(
-                              backgroundImage: NetworkImage(
-                                  'https://www.worldometers.info/img/flags/in-flag.gif'),
-                            ),
-                            Padding(
-                              padding: const EdgeInsets.all(5.0),
-                              child: Text(
-                                "${covidByCountr.state} \n Total Case: ${covidByCountr.confirmed} \n "
-                                " Total Death: ${covidByCountr.deaths}",
-                                style: TextStyle(
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.w700,
-                                ),
-                              ),
-                            )
-                          ],
-                        ),
-                      ),
-                    );
-                  },
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  child: DataTable(
+                    columnSpacing: 2,
+                    sortColumnIndex: 0,
+                    dividerThickness: 5,
+                    columns: [
+                      DataColumn(label: Text('State')),
+                      DataColumn(label: Text('Confirmed')),
+                      DataColumn(label: Text('Death')),
+                    ],
+                    rows: List.generate(covidInIndia.length,
+                        (index) => _getDataRow(covidInIndia[index])),
+                  ),
                 ),
               ),
             ],
