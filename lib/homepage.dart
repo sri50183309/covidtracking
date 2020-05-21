@@ -101,6 +101,10 @@ class LikeCounter extends StatelessWidget {
         length: 3,
         child: Scaffold(
           appBar: AppBar(
+            leading: Icon(
+              FontAwesomeIcons.bars,
+              color: Colors.yellow,
+            ),
             backgroundColor: Color(0xff1976d2),
             //backgroundColor: Color(0xff308e1c),
             bottom: TabBar(
