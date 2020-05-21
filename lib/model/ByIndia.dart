@@ -6,10 +6,10 @@ import 'package:flutter/material.dart';
 class COVIDInIndia {
   final String state; //country
   final int confirmed;
-  final int death_rate;
-  final int active_rate; //new_cases
+  final int deaths;
+  final int recovered; //new_cases
 
-  COVIDInIndia(this.state, this.confirmed, this.death_rate, this.active_rate);
+  COVIDInIndia(this.state, this.confirmed, this.deaths, this.recovered);
 
   static byTotalCases(Map userData) {
     List<COVIDInIndia> byTotalCases = [];
@@ -24,6 +24,6 @@ class COVIDInIndia {
 
   static fromTotalCases(element) {
     return new COVIDInIndia(element['state'], element['confirmed'],
-        element['death_rate'], element['active_rate']);
+        element['deaths'], element['recovered']);
   }
 }

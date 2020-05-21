@@ -52,17 +52,16 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-          child: StreamBuilder(
-        stream: getByCountry(Duration(seconds: 1)),
-        initialData: null,
-        builder: (context, stream) {
-          if (stream.connectionState == ConnectionState.done) {
-            return LikeCounter(stream.data);
-          }
-          if (stream.hasData) {
-            return LikeCounter(stream.data);
+          child: FutureBuilder(
+        future: Future.wait([getWorldStatistics(), getIndiaStatistics()]),
+        builder: (context, AsyncSnapshot<List> snapshot) {
+          if (!snapshot.hasData) {
+            return CircularProgressIndicator(
+              backgroundColor: Colors.cyanAccent,
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+            );
           } else {
-            return CircularProgressIndicator();
+            return LikeCounter(snapshot.data[0], snapshot.data[1]);
           }
         },
       )),
@@ -70,52 +69,16 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-//class NewDynamicWidget extends StatelessWidget {
-//  @override
-//  Widget build(BuildContext context) {
-//    return Consumer<COVIDByCountry>(
-//      builder: (context, COVIDByCountry covidByCountry),
-//    );
-//  }
-//}
-
 class LikeCounter extends StatelessWidget {
   final List covidInWholeWolrd;
-
-  List<charts.Series<Sales, int>> _seriesLineData =
-      List<charts.Series<Sales, int>>();
+  final List covidInIndia;
   List<charts.Series<COVIDByCountry, String>> _covidByCountry =
       List<charts.Series<COVIDByCountry, String>>();
 
-  LikeCounter(this.covidInWholeWolrd);
+  LikeCounter(this.covidInWholeWolrd, this.covidInIndia);
 
   _generateData() {
     var covidByTotalCases = this.covidInWholeWolrd;
-    var linesalesdata = [
-      new Sales(0, 45),
-      new Sales(1, 56),
-      new Sales(2, 55),
-      new Sales(3, 60),
-      new Sales(4, 61),
-      new Sales(5, 70),
-    ];
-    var linesalesdata1 = [
-      new Sales(0, 35),
-      new Sales(1, 46),
-      new Sales(2, 45),
-      new Sales(3, 50),
-      new Sales(4, 51),
-      new Sales(5, 60),
-    ];
-
-    var linesalesdata2 = [
-      new Sales(0, 20),
-      new Sales(1, 24),
-      new Sales(2, 25),
-      new Sales(3, 40),
-      new Sales(4, 45),
-      new Sales(5, 60),
-    ];
     _covidByCountry.add(
       charts.Series(
         domainFn: (COVIDByCountry pollution, _) =>
@@ -126,16 +89,6 @@ class LikeCounter extends StatelessWidget {
         fillPatternFn: (_, __) => charts.FillPatternType.solid,
         fillColorFn: (COVIDByCountry pollution, _) =>
             charts.ColorUtil.fromDartColor(pollution.colorval),
-      ),
-    );
-
-    _seriesLineData.add(
-      charts.Series(
-        colorFn: (__, _) => charts.ColorUtil.fromDartColor(Color(0xffff9900)),
-        id: 'Air Pollution',
-        data: linesalesdata2,
-        domainFn: (Sales sales, _) => sales.yearval,
-        measureFn: (Sales sales, _) => sales.salesval,
       ),
     );
   }
@@ -156,8 +109,8 @@ class LikeCounter extends StatelessWidget {
                 Tab(
                   icon: Icon(FontAwesomeIcons.solidChartBar),
                 ),
-                Tab(icon: Icon(FontAwesomeIcons.flag)),
-                Tab(icon: Icon(FontAwesomeIcons.chartLine)),
+                Tab(icon: Icon(FontAwesomeIcons.globe)),
+                Tab(icon: Icon(FontAwesomeIcons.globeAsia)),
               ],
             ),
             title: Text('Covid Tracking in world'),
@@ -225,43 +178,35 @@ class LikeCounter extends StatelessWidget {
               ),
               Padding(
                 padding: EdgeInsets.all(8.0),
-                child: Container(
-                  child: Center(
-                    child: Column(
-                      children: <Widget>[
-                        Text(
-                          'Sales for the first 5 years',
-                          style: TextStyle(
-                              fontSize: 24.0, fontWeight: FontWeight.bold),
+                child: ListView.builder(
+                  itemCount: covidInIndia == null ? 0 : covidInIndia.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    COVIDInIndia covidByCountr = covidInIndia[index];
+                    return Card(
+                      child: Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Row(
+                          children: <Widget>[
+                            CircleAvatar(
+                              backgroundImage: NetworkImage(
+                                  'https://www.worldometers.info/img/flags/in-flag.gif'),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.all(10.0),
+                              child: Text(
+                                "${covidByCountr.state} \n Total Case: ${covidByCountr.confirmed} \n "
+                                " Total Death: ${covidByCountr.deaths}",
+                                style: TextStyle(
+                                  fontSize: 20.0,
+                                  fontWeight: FontWeight.w700,
+                                ),
+                              ),
+                            )
+                          ],
                         ),
-                        Expanded(
-                          child: charts.LineChart(_seriesLineData,
-                              defaultRenderer: new charts.LineRendererConfig(
-                                  includeArea: true, stacked: true),
-                              animate: true,
-                              animationDuration: Duration(seconds: 5),
-                              behaviors: [
-                                new charts.ChartTitle('Years',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.bottom,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle('Sales',
-                                    behaviorPosition:
-                                        charts.BehaviorPosition.start,
-                                    titleOutsideJustification: charts
-                                        .OutsideJustification.middleDrawArea),
-                                new charts.ChartTitle(
-                                  'Departments',
-                                  behaviorPosition: charts.BehaviorPosition.end,
-                                  titleOutsideJustification: charts
-                                      .OutsideJustification.middleDrawArea,
-                                )
-                              ]),
-                        ),
-                      ],
-                    ),
-                  ),
+                      ),
+                    );
+                  },
                 ),
               ),
             ],
@@ -270,11 +215,4 @@ class LikeCounter extends StatelessWidget {
       ),
     );
   }
-}
-
-class Sales {
-  int yearval;
-  int salesval;
-
-  Sales(this.yearval, this.salesval);
 }
