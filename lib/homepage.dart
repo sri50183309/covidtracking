@@ -155,7 +155,7 @@ class LikeCounter extends StatelessWidget {
                     COVIDByCountry covidByCountr = covidInWholeWolrd[index];
                     return Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(2.0),
                         child: Row(
                           children: <Widget>[
                             CircleAvatar(
@@ -167,7 +167,7 @@ class LikeCounter extends StatelessWidget {
                                 "${covidByCountr.country} \n Total Case: ${covidByCountr.totalCasesString} \n "
                                 " Total Death: ${covidByCountr.total_deaths}",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
@@ -187,7 +187,7 @@ class LikeCounter extends StatelessWidget {
                     COVIDInIndia covidByCountr = covidInIndia[index];
                     return Card(
                       child: Padding(
-                        padding: const EdgeInsets.all(10.0),
+                        padding: const EdgeInsets.all(5.0),
                         child: Row(
                           children: <Widget>[
                             CircleAvatar(
@@ -195,12 +195,12 @@ class LikeCounter extends StatelessWidget {
                                   'https://www.worldometers.info/img/flags/in-flag.gif'),
                             ),
                             Padding(
-                              padding: const EdgeInsets.all(10.0),
+                              padding: const EdgeInsets.all(5.0),
                               child: Text(
                                 "${covidByCountr.state} \n Total Case: ${covidByCountr.confirmed} \n "
                                 " Total Death: ${covidByCountr.deaths}",
                                 style: TextStyle(
-                                  fontSize: 20.0,
+                                  fontSize: 15.0,
                                   fontWeight: FontWeight.w700,
                                 ),
                               ),
