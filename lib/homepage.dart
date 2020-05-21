@@ -165,7 +165,6 @@ class LikeCounter extends StatelessWidget {
                               padding: const EdgeInsets.all(10.0),
                               child: Text(
                                 "${covidByCountr.country} \n Total Case: ${covidByCountr.total_cases} \n "
-                                " New Case: ${covidByCountr.new_cases} \n"
                                 " Total Death: ${covidByCountr.total_deaths}",
                                 style: TextStyle(
                                   fontSize: 20.0,
