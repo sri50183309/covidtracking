@@ -66,9 +66,23 @@ class DisplayData extends StatelessWidget {
   DataRow _getDataRow(COVIDInIndia result) {
     return DataRow(
       cells: <DataCell>[
-        DataCell(Text(result.state)),
-        DataCell(Text("${result.confirmed}")),
-        DataCell(Text("${result.deaths}")),
+        DataCell(Text(
+          result.state,
+          style: TextStyle(
+              fontStyle: FontStyle.normal, color: Colors.black, fontSize: 15),
+        )),
+        DataCell(Text(
+          "${result.confirmed}",
+          style: TextStyle(
+              fontStyle: FontStyle.normal, color: Colors.red, fontSize: 20),
+        )),
+        DataCell(Text(
+          "${result.deaths}",
+          style: TextStyle(
+              fontStyle: FontStyle.normal,
+              color: Colors.redAccent,
+              fontSize: 20),
+        )),
       ],
     );
   }
@@ -142,17 +156,17 @@ class DisplayData extends StatelessWidget {
             DataColumn(
               label: Text('State',
                   style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.green)),
+                      fontStyle: FontStyle.italic, color: Colors.black)),
             ),
             DataColumn(
               label: Text('Confirmed',
                   style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.green)),
+                      fontStyle: FontStyle.italic, color: Colors.black)),
             ),
             DataColumn(
               label: Text('Death',
                   style: TextStyle(
-                      fontStyle: FontStyle.italic, color: Colors.green)),
+                      fontStyle: FontStyle.italic, color: Colors.black)),
             ),
           ],
           rows: List.generate(
