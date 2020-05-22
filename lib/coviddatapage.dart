@@ -137,12 +137,23 @@ class DisplayData extends StatelessWidget {
         scrollDirection: Axis.vertical,
         child: DataTable(
           columnSpacing: 2,
-          sortColumnIndex: 0,
           dividerThickness: 5,
           columns: [
-            DataColumn(label: Text('State')),
-            DataColumn(label: Text('Confirmed')),
-            DataColumn(label: Text('Death')),
+            DataColumn(
+              label: Text('State',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.green)),
+            ),
+            DataColumn(
+              label: Text('Confirmed',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.green)),
+            ),
+            DataColumn(
+              label: Text('Death',
+                  style: TextStyle(
+                      fontStyle: FontStyle.italic, color: Colors.green)),
+            ),
           ],
           rows: List.generate(
               covidInIndia.length, (index) => _getDataRow(covidInIndia[index])),
