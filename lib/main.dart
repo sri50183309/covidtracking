@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'coviddatapage.dart';
+import 'menu_layout/menu_dashboard_layout.dart';
 
 void main() => runApp(MyApp());
 
@@ -13,7 +14,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(
         primaryColor: Color(0xffff6101),
       ),
-      home: COVIDDataPage(),
+      home: MenuDashboardLayout(),
     );
   }
 }

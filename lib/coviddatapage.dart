@@ -9,9 +9,10 @@ import 'dart:convert';
 
 import 'package:provider/provider.dart';
 
+import 'bloc/navigation_bloc/navigation_bloc.dart';
 import 'model/Constants.dart';
 
-class COVIDDataPage extends StatefulWidget {
+class COVIDDataPage extends StatefulWidget with NavigationStates {
   final Widget child;
   COVIDDataPage({Key key, this.child}) : super(key: key);
   _COVIDDataPageState createState() => _COVIDDataPageState();
@@ -135,6 +136,7 @@ class DisplayData extends StatelessWidget {
               FontAwesomeIcons.bars,
               color: Colors.yellow,
             ),
+
             backgroundColor: Color(0xff1976d2),
             //backgroundColor: Color(0xff308e1c),
             bottom: TabBar(
