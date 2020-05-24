@@ -63,53 +63,51 @@ class MessagesPage extends StatelessWidget with NavigationStates {
               );
             } else {
               List covidInIndia = snapshot.data[0];
-              return Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  verticalDirection: VerticalDirection.down,
-                  children: <Widget>[
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        InkWell(
-                          child: Icon(Icons.menu, color: Colors.black),
-                          onTap: onMenuTap,
-                        ),
-                        Text("Covid in India",
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                verticalDirection: VerticalDirection.down,
+                children: <Widget>[
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      InkWell(
+                        child: Icon(Icons.menu, color: Colors.black),
+                        onTap: onMenuTap,
+                      ),
+                      Text("Covid in India",
+                          style:
+                              TextStyle(fontSize: 24, color: Colors.redAccent)),
+                      Icon(Icons.settings, color: Colors.redAccent),
+                    ],
+                  ),
+                  DataTable(
+                    columnSpacing: 2,
+                    dividerThickness: 5,
+                    columns: [
+                      DataColumn(
+                        label: Text('State',
                             style: TextStyle(
-                                fontSize: 24, color: Colors.redAccent)),
-                        Icon(Icons.settings, color: Colors.redAccent),
-                      ],
-                    ),
-                    DataTable(
-                      columnSpacing: 2,
-                      dividerThickness: 5,
-                      columns: [
-                        DataColumn(
-                          label: Text('State',
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.black)),
-                        ),
-                        DataColumn(
-                          label: Text('Confirmed',
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.black)),
-                        ),
-                        DataColumn(
-                          label: Text('Death',
-                              style: TextStyle(
-                                  fontStyle: FontStyle.italic,
-                                  color: Colors.black)),
-                        ),
-                      ],
-                      rows: List.generate(covidInIndia.length,
-                          (index) => _getDataRow(covidInIndia[index])),
-                    )
-                  ],
-                ),
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black)),
+                      ),
+                      DataColumn(
+                        label: Text('Confirmed',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black)),
+                      ),
+                      DataColumn(
+                        label: Text('Death',
+                            style: TextStyle(
+                                fontStyle: FontStyle.italic,
+                                color: Colors.black)),
+                      ),
+                    ],
+                    rows: List.generate(covidInIndia.length,
+                        (index) => _getDataRow(covidInIndia[index])),
+                  )
+                ],
               );
             }
           },

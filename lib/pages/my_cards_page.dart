@@ -78,6 +78,7 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
                       ),
                     ),
                     SizedBox(height: 50),
+                    Text('World data in numbers'),
                     Container(
                       height: 300,
                       child: PageView(
@@ -90,27 +91,24 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
                               COVIDByCountry covidByCountr =
                                   covidInWorld[index];
                               return Card(
-                                child: Padding(
-                                  padding: const EdgeInsets.all(2.0),
-                                  child: Row(
-                                    children: <Widget>[
-                                      CircleAvatar(
-                                        backgroundImage:
-                                            NetworkImage(covidByCountr.flag),
-                                      ),
-                                      Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                        child: Text(
-                                          "${covidByCountr.country} \n Total Case: ${covidByCountr.totalCasesString} \n "
-                                          " Total Death: ${covidByCountr.total_deaths}",
-                                          style: TextStyle(
-                                            fontSize: 15.0,
-                                            fontWeight: FontWeight.w700,
-                                          ),
+                                child: Row(
+                                  children: <Widget>[
+                                    CircleAvatar(
+                                      backgroundImage:
+                                          NetworkImage(covidByCountr.flag),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.all(10.0),
+                                      child: Text(
+                                        "${covidByCountr.country} \n Total Case: ${covidByCountr.totalCasesString} \n "
+                                        " Total Death: ${covidByCountr.total_deaths}",
+                                        style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w700,
                                         ),
-                                      )
-                                    ],
-                                  ),
+                                      ),
+                                    )
+                                  ],
                                 ),
                               );
                             },
