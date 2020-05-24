@@ -77,6 +77,47 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
                         ],
                       ),
                     ),
+                    SizedBox(height: 50),
+                    Container(
+                      height: 300,
+                      child: PageView(
+                        controller: PageController(viewportFraction: 0.8),
+                        children: <Widget>[
+                          ListView.builder(
+                            itemCount:
+                                covidInWorld == null ? 0 : covidInWorld.length,
+                            itemBuilder: (BuildContext context, int index) {
+                              COVIDByCountry covidByCountr =
+                                  covidInWorld[index];
+                              return Card(
+                                child: Padding(
+                                  padding: const EdgeInsets.all(2.0),
+                                  child: Row(
+                                    children: <Widget>[
+                                      CircleAvatar(
+                                        backgroundImage:
+                                            NetworkImage(covidByCountr.flag),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsets.all(10.0),
+                                        child: Text(
+                                          "${covidByCountr.country} \n Total Case: ${covidByCountr.totalCasesString} \n "
+                                          " Total Death: ${covidByCountr.total_deaths}",
+                                          style: TextStyle(
+                                            fontSize: 15.0,
+                                            fontWeight: FontWeight.w700,
+                                          ),
+                                        ),
+                                      )
+                                    ],
+                                  ),
+                                ),
+                              );
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
