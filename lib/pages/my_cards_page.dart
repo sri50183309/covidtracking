@@ -134,7 +134,7 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
           child: charts.BarChart(
             _covidByCountry,
             animate: true,
-            barGroupingType: charts.BarGroupingType.grouped,
+            barGroupingType: charts.BarGroupingType.groupedStacked,
             //behaviors: [new charts.SeriesLegend()],
             animationDuration: Duration(seconds: 5),
           ),
