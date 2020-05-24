@@ -11,9 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'COVID Tracking',
-      theme: ThemeData(
-        primaryColor: Color(0xffff6101),
-      ),
+      theme: ThemeData.dark(),
       home: MenuDashboardLayout(),
     );
   }

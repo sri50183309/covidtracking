@@ -25,17 +25,17 @@ class MessagesPage extends StatelessWidget with NavigationStates {
         DataCell(Text(
           result.state,
           style: TextStyle(
-              fontStyle: FontStyle.normal, color: Colors.black, fontSize: 15),
+              fontStyle: FontStyle.normal, color: Colors.white, fontSize: 15),
         )),
         DataCell(Text(
           "${result.confirmed}",
           style: TextStyle(
-              fontStyle: FontStyle.normal, color: Colors.black, fontSize: 20),
+              fontStyle: FontStyle.normal, color: Colors.white, fontSize: 20),
         )),
         DataCell(Text(
           "${result.deaths}",
           style: TextStyle(
-              fontStyle: FontStyle.normal, color: Colors.black, fontSize: 20),
+              fontStyle: FontStyle.normal, color: Colors.white, fontSize: 20),
         )),
       ],
     );
@@ -46,7 +46,6 @@ class MessagesPage extends StatelessWidget with NavigationStates {
     return Container(
       decoration: BoxDecoration(
         borderRadius: BorderRadius.all(Radius.circular(1)),
-        color: Colors.white,
       ),
       padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
       child: SingleChildScrollView(
@@ -72,13 +71,12 @@ class MessagesPage extends StatelessWidget with NavigationStates {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       InkWell(
-                        child: Icon(Icons.menu, color: Colors.black),
+                        child: Icon(Icons.menu, color: Colors.white),
                         onTap: onMenuTap,
                       ),
                       Text("Covid in India",
-                          style:
-                              TextStyle(fontSize: 24, color: Colors.redAccent)),
-                      Icon(Icons.settings, color: Colors.redAccent),
+                          style: TextStyle(fontSize: 24, color: Colors.white)),
+                      Icon(Icons.settings, color: Colors.white70),
                     ],
                   ),
                   DataTable(
@@ -89,19 +87,19 @@ class MessagesPage extends StatelessWidget with NavigationStates {
                         label: Text('State',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Colors.black)),
+                                color: Colors.white)),
                       ),
                       DataColumn(
                         label: Text('Confirmed',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Colors.black)),
+                                color: Colors.white)),
                       ),
                       DataColumn(
                         label: Text('Death',
                             style: TextStyle(
                                 fontStyle: FontStyle.italic,
-                                color: Colors.black)),
+                                color: Colors.white)),
                       ),
                     ],
                     rows: List.generate(covidInIndia.length,
