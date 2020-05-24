@@ -77,26 +77,6 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
                         ],
                       ),
                     ),
-                    SizedBox(height: 20),
-                    Text(
-                      "Data in Numbers",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
-                    ),
-                    ListView.separated(
-                      shrinkWrap: true,
-                      itemBuilder: (covidInWorld, index) {
-                        return ListTile(
-                          title: Text("Macbook"),
-                          subtitle: Text("Apple"),
-                          trailing: Text("-2900"),
-                        );
-                      },
-                      separatorBuilder: (context, index) {
-                        return Divider(height: 16);
-                      },
-                      itemCount: 10,
-                    ),
-                    SizedBox(height: 20),
                   ],
                 ),
               ),
