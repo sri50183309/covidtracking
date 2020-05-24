@@ -23,7 +23,7 @@ class MessagesPage extends StatelessWidget with NavigationStates {
     return DataRow(
       cells: <DataCell>[
         DataCell(Text(
-          result.state,
+          result.state.replaceAll(" ", "\n"),
           style: TextStyle(
               fontStyle: FontStyle.normal, color: Colors.white, fontSize: 15),
         )),
@@ -63,7 +63,6 @@ class MessagesPage extends StatelessWidget with NavigationStates {
             } else {
               List covidInIndia = snapshot.data[0];
               return Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 verticalDirection: VerticalDirection.down,
                 children: <Widget>[
                   Row(
@@ -80,8 +79,8 @@ class MessagesPage extends StatelessWidget with NavigationStates {
                     ],
                   ),
                   DataTable(
-                    columnSpacing: 2,
                     dividerThickness: 5,
+                    dataRowHeight: 60,
                     columns: [
                       DataColumn(
                         label: Text('State',
