@@ -20,92 +20,90 @@ class MyCardsPage extends StatelessWidget with NavigationStates {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.all(Radius.circular(40)),
-        color: Colors.grey,
-      ),
-      child: SingleChildScrollView(
-        scrollDirection: Axis.vertical,
-        physics: ClampingScrollPhysics(),
-        child: Container(
-          padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  InkWell(
-                    child: Icon(Icons.menu, color: Colors.white),
-                    onTap: onMenuTap,
-                  ),
-                  Text("COVID around the world",
-                      style: TextStyle(fontSize: 24, color: Colors.white)),
-                  Icon(Icons.settings, color: Colors.white),
-                ],
-              ),
-              SizedBox(height: 50),
-              Container(
-                height: 300,
-                child: PageView(
-                  controller: PageController(viewportFraction: 0.8),
-                  scrollDirection: Axis.horizontal,
-                  pageSnapping: true,
-                  children: <Widget>[
-                    Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 8),
-                      color: Colors.white70,
-                      width: 100,
-                      child: FutureBuilder(
-                        future: Future.wait([getWorldStatistics()]),
-                        builder: (context, AsyncSnapshot<List> snapshot) {
-                          if (!snapshot.hasData) {
-                            return CircularProgressIndicator(
-                              backgroundColor: Colors.cyanAccent,
-                              valueColor:
-                                  new AlwaysStoppedAnimation<Color>(Colors.red),
-                            );
-                          } else {
-                            List<COVIDByCountry> covidInWorld =
-                                snapshot.data[0];
-                            List<charts.Series<COVIDByCountry, String>>
-                                _covidByCountry =
-                                generateGraphData(covidInWorld);
+    return FutureBuilder(
+      future: Future.wait([getWorldStatistics()]),
+      builder: (context, AsyncSnapshot<List> snapshot) {
+        if (!snapshot.hasData) {
+          return Center(
+            child: CircularProgressIndicator(
+              backgroundColor: Colors.cyanAccent,
+              valueColor: new AlwaysStoppedAnimation<Color>(Colors.red),
+            ),
+          );
+        } else {
+          List<COVIDByCountry> covidInWorld = snapshot.data[0];
+          List<charts.Series<COVIDByCountry, String>> _covidByCountry =
+              generateGraphData(covidInWorld);
 
-                            return renderGraphInUI(_covidByCountry);
-                          }
-                        },
+          return Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.all(Radius.circular(40)),
+              color: Colors.grey,
+            ),
+            child: SingleChildScrollView(
+              scrollDirection: Axis.vertical,
+              physics: ClampingScrollPhysics(),
+              child: Container(
+                padding: const EdgeInsets.only(left: 16, right: 16, top: 48),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        InkWell(
+                          child: Icon(Icons.menu, color: Colors.white),
+                          onTap: onMenuTap,
+                        ),
+                        Text("COVID around the world",
+                            style:
+                                TextStyle(fontSize: 24, color: Colors.white)),
+                        Icon(Icons.settings, color: Colors.white),
+                      ],
+                    ),
+                    SizedBox(height: 50),
+                    Container(
+                      height: 300,
+                      child: PageView(
+                        controller: PageController(viewportFraction: 0.8),
+                        children: <Widget>[
+                          Container(
+                            margin: const EdgeInsets.symmetric(horizontal: 8),
+                            color: Colors.white70,
+                            width: 10,
+                            child: renderGraphInUI(_covidByCountry),
+                          ),
+                        ],
                       ),
                     ),
+                    SizedBox(height: 20),
+                    Text(
+                      "Data in Numbers",
+                      style: TextStyle(color: Colors.white, fontSize: 20),
+                    ),
+                    ListView.separated(
+                      shrinkWrap: true,
+                      itemBuilder: (covidInWorld, index) {
+                        return ListTile(
+                          title: Text("Macbook"),
+                          subtitle: Text("Apple"),
+                          trailing: Text("-2900"),
+                        );
+                      },
+                      separatorBuilder: (context, index) {
+                        return Divider(height: 16);
+                      },
+                      itemCount: 10,
+                    ),
+                    SizedBox(height: 20),
                   ],
                 ),
               ),
-              SizedBox(height: 20),
-              Text(
-                "Data in Numbers",
-                style: TextStyle(color: Colors.white, fontSize: 20),
-              ),
-              ListView.separated(
-                shrinkWrap: true,
-                itemBuilder: (covi, index) {
-                  return ListTile(
-                    title: Text("Macbook"),
-                    subtitle: Text("Apple"),
-                    trailing: Text("-2900"),
-                  );
-                },
-                separatorBuilder: (context, index) {
-                  return Divider(height: 16);
-                },
-                itemCount: 10,
-              ),
-              SizedBox(height: 20),
-            ],
-          ),
-        ),
-      ),
+            ),
+          );
+        }
+      },
     );
   }
 
