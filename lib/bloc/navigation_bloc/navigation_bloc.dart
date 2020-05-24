@@ -1,8 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:covidtracker/model/ByIndia.dart';
-import 'package:covidtracker/pages/message_page.dart';
-import 'package:covidtracker/pages/my_cards_page.dart';
-import 'package:covidtracker/pages/utility_page.dart';
+import 'package:covidtracker/pages/covid_in_india.dart';
+import 'package:covidtracker/pages/covid_around_world.dart';
+import 'package:covidtracker/pages/covid_twits_news.dart';
 
 enum NavigationEvents {
   DashboardClickedEvent,
