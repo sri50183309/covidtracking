@@ -8,10 +8,10 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class MyCardsPage extends StatelessWidget with NavigationStates {
+class CovidAroundWorld extends StatelessWidget with NavigationStates {
   final Function onMenuTap;
 
-  const MyCardsPage({Key key, this.onMenuTap}) : super(key: key);
+  const CovidAroundWorld({Key key, this.onMenuTap}) : super(key: key);
 
   Future<List> getWorldStatistics() async {
     http.Response response = await http.get(Constants.COVID_STATS_IN_WORLD);

@@ -18,7 +18,7 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   NavigationBloc({this.onMenuTap});
 
   @override
-  NavigationStates get initialState => MyCardsPage(
+  NavigationStates get initialState => CovidAroundWorld(
         onMenuTap: onMenuTap,
       );
 
@@ -26,17 +26,17 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
       case NavigationEvents.DashboardClickedEvent:
-        yield MyCardsPage(
+        yield CovidAroundWorld(
           onMenuTap: onMenuTap,
         );
         break;
       case NavigationEvents.MessagesClickedEvent:
-        yield MessagesPage(
+        yield CovidInIndia(
           onMenuTap: onMenuTap,
         );
         break;
       case NavigationEvents.UtilityClickedEvent:
-        yield UtilityBillsPage(
+        yield CovidNews(
           onMenuTap: onMenuTap,
         );
         break;

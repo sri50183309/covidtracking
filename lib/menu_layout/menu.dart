@@ -74,7 +74,7 @@ class Menu extends StatelessWidget {
                     onMenuItemClicked();
                   },
                   child: Text(
-                    "Utility Bills",
+                    "COVID News",
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 22,
@@ -85,10 +85,10 @@ class Menu extends StatelessWidget {
                   ),
                 ),
                 SizedBox(height: 30),
-                Text("Funds Transfer",
+                Text("COVID Videos",
                     style: TextStyle(color: Colors.white, fontSize: 22)),
                 SizedBox(height: 30),
-                Text("Branches",
+                Text("COVID Search",
                     style: TextStyle(color: Colors.white, fontSize: 22)),
               ],
             ),

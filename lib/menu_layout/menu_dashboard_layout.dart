@@ -102,11 +102,11 @@ class _MenuDashboardLayoutState extends State<MenuDashboardLayout>
   }
 
   int findSelectedIndex(NavigationStates navigationState) {
-    if (navigationState is MyCardsPage) {
+    if (navigationState is CovidAroundWorld) {
       return 0;
-    } else if (navigationState is MessagesPage) {
+    } else if (navigationState is CovidInIndia) {
       return 1;
-    } else if (navigationState is UtilityBillsPage) {
+    } else if (navigationState is CovidNews) {
       return 2;
     } else {
       return 0;

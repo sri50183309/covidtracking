@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 import 'dart:async';
 import 'dart:convert';
 
-class MessagesPage extends StatelessWidget with NavigationStates {
+class CovidInIndia extends StatelessWidget with NavigationStates {
   final Function onMenuTap;
 
   Future<List> getIndiaStatistics() async {
@@ -17,7 +17,7 @@ class MessagesPage extends StatelessWidget with NavigationStates {
     return COVIDInIndia.byTotalCases(json.decode(response.body));
   }
 
-  const MessagesPage({Key key, this.onMenuTap}) : super(key: key);
+  const CovidInIndia({Key key, this.onMenuTap}) : super(key: key);
 
   DataRow _getDataRow(COVIDInIndia result) {
     return DataRow(

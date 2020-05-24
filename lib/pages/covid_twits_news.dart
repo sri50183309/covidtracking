@@ -1,10 +1,10 @@
 import 'package:covidtracker/bloc/navigation_bloc/navigation_bloc.dart';
 import 'package:flutter/material.dart';
 
-class UtilityBillsPage extends StatelessWidget with NavigationStates {
+class CovidNews extends StatelessWidget with NavigationStates {
   final Function onMenuTap;
 
-  const UtilityBillsPage({Key key, this.onMenuTap}) : super(key: key);
+  const CovidNews({Key key, this.onMenuTap}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class UtilityBillsPage extends StatelessWidget with NavigationStates {
                 child: Icon(Icons.menu, color: Colors.white),
                 onTap: onMenuTap,
               ),
-              Text("Utilities",
+              Text("Covid News",
                   style: TextStyle(fontSize: 24, color: Colors.white)),
               Icon(Icons.settings, color: Colors.white),
             ],
