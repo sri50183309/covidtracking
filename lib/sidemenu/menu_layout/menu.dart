@@ -34,7 +34,7 @@ class Menu extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.DashboardClickedEvent);
+                        .add(NavigationEvents.CovidInWorldClickedEvent);
                     onMenuItemClicked();
                   },
                   child: Text(
@@ -52,7 +52,7 @@ class Menu extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.MessagesClickedEvent);
+                        .add(NavigationEvents.CovidInIndiaClickedEvent);
                     onMenuItemClicked();
                   },
                   child: Text(
@@ -70,7 +70,7 @@ class Menu extends StatelessWidget {
                 GestureDetector(
                   onTap: () {
                     BlocProvider.of<NavigationBloc>(context)
-                        .add(NavigationEvents.UtilityClickedEvent);
+                        .add(NavigationEvents.CovidNewsClickedEvent);
                     onMenuItemClicked();
                   },
                   child: Text(

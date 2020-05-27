@@ -1,7 +1,7 @@
 import 'package:covidtracker/bloc/navigation_bloc/navigation_bloc.dart';
-import 'package:covidtracker/pages/covid_in_india.dart';
-import 'package:covidtracker/pages/covid_around_world.dart';
-import 'package:covidtracker/pages/covid_twits_news.dart';
+import 'package:covidtracker/sidemenu/pages/covid_around_world.dart';
+import 'package:covidtracker/sidemenu/pages/covid_in_india.dart';
+import 'package:covidtracker/sidemenu/pages/covid_twits_news.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 

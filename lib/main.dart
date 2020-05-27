@@ -1,6 +1,6 @@
+import 'package:covidtracker/sidemenu/menu_layout/menu_dashboard_layout.dart';
 import 'package:flutter/material.dart';
 import 'coviddatapage.dart';
-import 'menu_layout/menu_dashboard_layout.dart';
 
 void main() => runApp(MyApp());
 

@@ -1,13 +1,12 @@
 import 'package:bloc/bloc.dart';
-import 'package:covidtracker/model/ByIndia.dart';
-import 'package:covidtracker/pages/covid_in_india.dart';
-import 'package:covidtracker/pages/covid_around_world.dart';
-import 'package:covidtracker/pages/covid_twits_news.dart';
+import 'package:covidtracker/sidemenu/pages/covid_around_world.dart';
+import 'package:covidtracker/sidemenu/pages/covid_in_india.dart';
+import 'package:covidtracker/sidemenu/pages/covid_twits_news.dart';
 
 enum NavigationEvents {
-  DashboardClickedEvent,
-  MessagesClickedEvent,
-  UtilityClickedEvent
+  CovidInWorldClickedEvent,
+  CovidInIndiaClickedEvent,
+  CovidNewsClickedEvent
 }
 
 abstract class NavigationStates {}
@@ -25,17 +24,17 @@ class NavigationBloc extends Bloc<NavigationEvents, NavigationStates> {
   @override
   Stream<NavigationStates> mapEventToState(NavigationEvents event) async* {
     switch (event) {
-      case NavigationEvents.DashboardClickedEvent:
+      case NavigationEvents.CovidInWorldClickedEvent:
         yield CovidAroundWorld(
           onMenuTap: onMenuTap,
         );
         break;
-      case NavigationEvents.MessagesClickedEvent:
+      case NavigationEvents.CovidInIndiaClickedEvent:
         yield CovidInIndia(
           onMenuTap: onMenuTap,
         );
         break;
-      case NavigationEvents.UtilityClickedEvent:
+      case NavigationEvents.CovidNewsClickedEvent:
         yield CovidNews(
           onMenuTap: onMenuTap,
         );
